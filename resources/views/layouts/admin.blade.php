@@ -6,8 +6,6 @@
     <link href="{{asset('admin/css/index.css')}}" rel="stylesheet" />
     <link href="{{asset('admin/bootstrap-3.3.7-dist/css/bootstrap.css')}}" rel="stylesheet" />
     <link href="{{asset('admin/font-awesome-4.7.0/css/font-awesome.min.css')}}" rel="stylesheet" />
-    <link href="{{asset('css/popupWindow.css')}}" rel="stylesheet" />
-    {{--<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />--}}
     @section('other_css')
     @show
 
@@ -40,10 +38,8 @@
 
 <script src="{{asset('admin/js/jquery-3.3.1.js')}}"></script>
 <script src="{{asset('admin/bootstrap-3.3.7-dist/js/bootstrap.js')}}"></script>
-{{--<script src="{{asset('admin/layer/layer.js')}}"></script>--}}
+<script src="{{asset('admin/layer/layer.js')}}"></script>
 <script src="{{asset('admin/js/index.js')}}"></script>
-<script src="{{asset('js/popupWindow.js')}}"></script>
-<script src="{{asset('js/show_ads.js')}}"></script>
 
 @section('other_js')
 @show

@@ -192,6 +192,12 @@ body {
 .con_top {
     margin-bottom: 30px;
 }
+.content_top {
+    color: #6e77f0;
+}
+.content_top:hover {
+    color: #0000F0;
+}
 .panel-body > .add{
     margin-bottom: 15px;
 }

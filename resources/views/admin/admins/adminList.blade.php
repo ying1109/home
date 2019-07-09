@@ -1,13 +1,18 @@
 @extends('layouts.admin')
 
 @section('other_css')
-
 @endsection
 
 @section('content')
     <div class="panel panel-default">
         <div class="panel-body">
-            <p class="con_top">管理员列表</p>
+            <p class="con_top">
+                <a class="content_top" href="{{url('admin/admins/adminList')}}">管理员列表</a>
+            </p>
+
+            @if(session('msg'))
+                <input type="hidden" id="msg" value="{{session('msg')}}">
+            @endif
 
             <a href="{{url('admin/admins/adminAdd')}}" class="btn btn-info add">添加</a>
             <table class="table table-hover">
@@ -37,15 +42,25 @@
                     </tr>
                 @endforeach
             </table>
+            <div class="page_list">
+                {{$admin_list}}
+            </div>
         </div>
     </div>
 @endsection
 
 @section('other_js')
-<script type="text/javascript">
-    $(".btn-danger").click(function () {
-        var org = confirm('确定删除吗？');
-        return org;
-    });
-</script>
+    <script type="text/javascript">
+        $(".btn-danger").click(function () {
+            var org = confirm('确定删除吗？');
+            return org;
+        });
+
+        $(document).ready(function () {
+            var msg = $('#msg').val();
+            if (msg) {
+                layer.msg(msg);
+            }
+        })
+    </script>
 @endsection

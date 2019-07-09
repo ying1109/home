@@ -1,0 +1,88 @@
+@extends('layouts.admin')
+@section('content')
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="line_txt">
+            <span class="line"></span>
+            <span class="txt">系统信息</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="info">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">服务器地址：</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">203.195.210.14</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">操作系统：</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">{{PHP_OS}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">运行环境：</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">{{$_SERVER['SERVER_SOFTWARE']}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">PHP环境：</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">{{PHP_VERSION}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">laravel版本：</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">5.7.*</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">服务器域名/IP：</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">{{$_SERVER['SERVER_NAME']}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Host：</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">{{$_SERVER['SERVER_ADDR']}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">日期时间：</label>
+                    <div class="col-sm-10">
+                        <p id="date" class="form-control-static"></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection
+
+@section('other_js')
+<script type="text/javascript">
+    var clock;
+    window.onload = function () {
+        clock = self.setInterval("showTime()", 500);
+    }
+
+    function showTime() {
+        var nowDate = new Date().toLocaleString();
+        $('#date').html(nowDate);
+    }
+</script>
+@endsection

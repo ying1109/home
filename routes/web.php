@@ -20,6 +20,8 @@ Route::get('/test', 'TestController@test');
 
 // Route::any('admin/login', 'Admin\LoginController@login');
 Route::any('/', 'Admin\LoginController@login');
+// Route::any('/admin/homepage/console', 'Admin\HomepageController@console');
+// Route::any('/admin/admins/adminList', 'Admin\AdminsController@adminAdd');
 
 Route::group(['middleware'=>['admin.login'], 'prefix'=>'admin', 'namespace'=>'Admin'], function () {
     Route::get('quit', 'LoginController@quit');
@@ -29,6 +31,7 @@ Route::group(['middleware'=>['admin.login'], 'prefix'=>'admin', 'namespace'=>'Ad
     Route::any('admins/adminList', 'AdminsController@adminList');
     Route::any('admins/adminAdd', 'AdminsController@adminAdd');
     Route::any('admins/adminDel/{id}', 'AdminsController@adminDel');
+    Route::any('admins/adminEdit/{id}', 'AdminsController@adminEdit');
 
 
 });

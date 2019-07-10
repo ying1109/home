@@ -36,8 +36,22 @@
                 <a class="content_top" href="{{url('admin/admins/adminList')}}">管理员列表</a> ->
                 <a class="content_top" href="{{url('admin/admins/adminAdd')}}">添加</a>
             </p>
-            @if(session('msg'))
-                <input type="hidden" id="msg" value="{{session('msg')}}">
+            {{--@if(session('msg'))--}}
+                {{--<input type="hidden" id="msg" value="{{session('msg')}}">--}}
+                {{--<div class="alert alert-warning">--}}
+                    {{--{{ session('msg') }}--}}
+                {{--</div>--}}
+            {{--@endif--}}
+            @if(count($errors) > 0)
+                @if (is_object($errors))
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $k)
+                            <p>{{$k}}</p>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="alert alert-danger">{{$k}}</div>
+                @endif
             @endif
 
             <form class="form-horizontal" action="{{url('admin/admins/adminAdd')}}" method="post" autocomplete="off">
@@ -60,7 +74,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">再次输入：</label>
                     <div class="col-sm-4">
-                        <input type="password" class="form-control" name="pwd" value="{{old('pwd')}}" autocomplete="new-password">
+                        <input type="password" class="form-control" name="password_confirmation" value="{{old('password_confirmation')}}" autocomplete="new-password">
                         <span class="eye"></span>
                     </div>
                 </div>
@@ -87,13 +101,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">邮箱：</label>
-                    <div class="col-sm-4">
-                        <input class="form-control" name="email"  value="{{old('email')}}">
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label class="col-sm-2 control-label">角色：</label>
                     <div class="col-sm-4">
                         <input class="form-control" name="role"  value="{{old('role')}}">
@@ -112,36 +119,36 @@
 
 @section('other_js')
     <script src="https://use.fontawesome.com/9f2ac9fd56.js"></script>
-    <script src="{{asset('js/bootstrap-password-toggler.js')}}"></script>
+    {{--<script src="{{asset('js/bootstrap-password-toggler.js')}}"></script>--}}
     <script type="text/javascript">
-        $("form").on("submit", function () {
-            var account  = $("input[name='account']").val();
-            var password = $("input[name='password']").val();
-            var pwd      = $("input[name='pwd']").val();
-            var phone    = $("input[name='phone']").val();
-            var email    = $("input[name='email']").val();
-            if (!account || !password || !pwd) {
-                layer.msg('账号和密码不能为空！');
-                return false;
-            }
-            if (password != pwd) {
-                layer.msg('两次密码输入不一致，请重新出入！');
-                return false;
-            }
-            if (phone) {
-                if (!phone.match(/^1\d{10}$/)) {
-                    layer.msg('手机号格式不正确！');
-                    return false;
-                }
-            }
-            if (email) {
-                if (!email.match(/^\w+@[a-z0-9]+\.[a-z]{2,4}$/)) {
-                    layer.msg('邮箱格式不正确！');
-                    return false;
-                }
-            }
+        {{--$("form").on("submit", function () {--}}
+            {{--var account  = $("input[name='account']").val();--}}
+            {{--var password = $("input[name='password']").val();--}}
+            {{--var password_confirmation      = $("input[name='password_confirmation']").val();--}}
+            {{--var phone    = $("input[name='phone']").val();--}}
+            {{--var email    = $("input[name='email']").val();--}}
+            {{--if (!account || !password || !password_confirmation) {--}}
+                {{--layer.msg('账号和密码不能为空！');--}}
+                {{--return false;--}}
+            {{--}--}}
+            {{--if (password != password_confirmation) {--}}
+                {{--layer.msg('两次密码输入不一致，请重新出入！');--}}
+                {{--return false;--}}
+            {{--}--}}
+            {{--if (phone) {--}}
+                {{--if (!phone.match(/^1\d{10}$/)) {--}}
+                    {{--layer.msg('手机号格式不正确！');--}}
+                    {{--return false;--}}
+                {{--}--}}
+            {{--}--}}
+            {{--if (email) {--}}
+                {{--if (!email.match(/^\w+@[a-z0-9]+\.[a-z]{2,4}$/)) {--}}
+                    {{--layer.msg('邮箱格式不正确！');--}}
+                    {{--return false;--}}
+                {{--}--}}
+            {{--}--}}
 
-        });
+        {{--});--}}
 
         // 显示或隐藏密码
         $(document).ready(function () {

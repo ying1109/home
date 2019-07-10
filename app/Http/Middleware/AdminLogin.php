@@ -17,7 +17,7 @@ class AdminLogin
     {
         // 使用中间键判断是否登录
         if (!session('admin')) {
-            return redirect('admin/login');
+            return redirect('');
         }
 
         return $next($request);

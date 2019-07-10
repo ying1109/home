@@ -2,30 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Model\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class LoginController extends Controller
 {
     // 登录
-    public function login() {
+    public function login(Request $request) {
         $input = Input::all();
         if ($input) {
             $account = $input['account'];
 
-            $admin = DB::select('select * from admin  WHERE account = ?', [$account]);
-            if (!$admin || Crypt::decrypt($admin[0]->password) != $input['pwd']) {
+            $admin = Admin::where('account', $account)->first();
+
+            if (!$admin || Crypt::decrypt($admin['password']) != $input['pwd']) {
                 return back()->with('msg', '用户名或密码错误！');
             }
 
             session(['admin'=>$admin]);
-
-            $path  = base_path() . '\storage\framework\sessions\session.php';
-            $array = var_export($admin[0]->account, true);
-            file_put_contents($path, $array);
+            session()->save();
 
             return redirect('admin/homepage/console');
         }

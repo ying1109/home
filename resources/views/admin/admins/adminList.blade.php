@@ -36,7 +36,7 @@
                         <td>{{date('Y-m-d H:i:s', $k->create_time)}}</td>
                         <td>{{$k->status}}</td>
                         <td>
-                            <a href="#" class="btn btn-success btn-xs">编辑</a>
+                            <a href="{{url('admin/admins/adminEdit', array($k->id))}}" class="btn btn-success btn-xs">编辑</a>
                             <a href="{{url('admin/admins/adminDel', array($k->id))}}" class="btn btn-danger btn-xs">删除</a>
                         </td>
                     </tr>

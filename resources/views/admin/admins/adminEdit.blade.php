@@ -34,7 +34,7 @@
         <div class="panel-body">
             <p class="con_top">
                 <a class="content_top" href="{{url('admin/admins/adminList')}}">管理员列表</a> ->
-                <a class="content_top" href="{{url('admin/admins/adminAdd')}}">添加</a>
+                <a class="content_top" href="{{url('admin/admins/adminEdit', array('id'=>$info->id))}}">编辑</a>
             </p>
             @if(count($errors) > 0)
                 @if (is_object($errors))
@@ -53,7 +53,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">账号：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="account" value="{{old('account')}}">
+                        <input type="text" class="form-control" name="account" value="{{$info->account}}" disabled>
                     </div>
                 </div>
 
@@ -76,30 +76,35 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">用户名：</label>
                     <div class="col-sm-4">
-                        <input class="form-control" name="user_name"  value="{{old('user_name')}}" autocomplete="off">
+                        <input class="form-control" name="user_name"  value="{{old('user_name') ? old('user_name') : $info->user_name}}" autocomplete="off">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">真实姓名：</label>
                     <div class="col-sm-4">
-                        <input class="form-control" name="real_name"  value="{{old('real_name')}}">
+                        <input class="form-control" name="real_name"  value="{{old('real_name') ? old('real_name') : $info->real_name}}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">电话：</label>
                     <div class="col-sm-4">
-                        <input class="form-control" name="phone"  value="{{old('phone')}}">
+                        <input class="form-control" name="phone"  value="{{old('phone') ? old('phone') : $info->phone}}">
                     </div>
                 </div>
 
-                {{--<div class="form-group">--}}
-                {{--<label class="col-sm-2 control-label">角色：</label>--}}
-                {{--<div class="col-sm-4">--}}
-                {{--<input class="form-control" name="role"  value="{{old('role')}}">--}}
-                {{--</div>--}}
-                {{--</div>--}}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">状态：</label>
+                    <div class="col-sm-4">
+                        <label class="radio-inline">
+                            <input type="radio" name="type" value="1" {{$info->type == 1 ? 'checked' : ''}}> 开启
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="type" value="0" {{$info->type == 0 ? 'checked' : ''}}> 关闭
+                        </label>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-4">
@@ -127,11 +132,6 @@
                 }
 
             });
-
-            var msg = $('#msg').val();
-            if (msg) {
-                layer.msg(msg);
-            }
         });
     </script>
 @endsection

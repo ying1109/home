@@ -5,7 +5,7 @@
     <a href="#"><i id="top_icon" class="fa fa-align-justify fa-2x"></i></a>
     <div id="right">
         <ul>
-            <li><span>{{session('admin')['account']}}</span></li>
+            <li><span title="账号">{{session('admin')['account']}}</span></li>
             <li>
                 <a href="{{url('admin/quit')}}">
                     <i class="fa fa-power-off fa-lg"></i>

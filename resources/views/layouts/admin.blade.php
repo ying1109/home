@@ -5,7 +5,7 @@
     <title>home</title>
     <link href="{{asset('admin/css/index.css')}}" rel="stylesheet" />
     <link href="{{asset('admin/bootstrap-3.3.7-dist/css/bootstrap.css')}}" rel="stylesheet" />
-    <link href="{{asset('admin/font-awesome-4.7.0/css/font-awesome.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('admin/font-awesome-4.7.0/css/font-awesome.css')}}" rel="stylesheet" />
     @section('other_css')
     @show
 

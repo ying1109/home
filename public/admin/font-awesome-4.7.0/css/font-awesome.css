@@ -488,6 +488,8 @@
 }
 .fa-asterisk:before {
   content: "\f069";
+  color: #ff0000;
+  font-size: 2px;
 }
 .fa-exclamation-circle:before {
   content: "\f06a";

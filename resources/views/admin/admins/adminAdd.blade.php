@@ -51,14 +51,14 @@
             <form class="form-horizontal" action="" method="post" autocomplete="off">
                 {{csrf_field()}}
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">账号：</label>
+                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk"></i>账号：</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" name="account" value="{{old('account')}}">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">密码：</label>
+                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk"></i>密码：</label>
                     <div class="col-sm-4">
                         <input type="password" class="form-control" name="password" value="" autocomplete="new-password">
                         <span class="eye"></span>
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">再次输入：</label>
+                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk"></i>再次输入：</label>
                     <div class="col-sm-4">
                         <input type="password" class="form-control" name="password_confirmation" value="" autocomplete="new-password">
                         <span class="eye"></span>
@@ -88,18 +88,23 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">电话：</label>
+                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk"></i>电话：</label>
                     <div class="col-sm-4">
                         <input class="form-control" name="phone"  value="{{old('phone')}}">
                     </div>
                 </div>
 
-                {{--<div class="form-group">--}}
-                {{--<label class="col-sm-2 control-label">角色：</label>--}}
-                {{--<div class="col-sm-4">--}}
-                {{--<input class="form-control" name="role"  value="{{old('role')}}">--}}
-                {{--</div>--}}
-                {{--</div>--}}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">状态：</label>
+                    <div class="col-sm-4">
+                        <label class="radio-inline">
+                            <input type="radio" name="type" value="1" {{old('type') ? 'checked' : ''}}> 开启
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="type" value="0" {{old('type') ? 'checked' : ''}}> 关闭
+                        </label>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-4">

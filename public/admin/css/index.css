@@ -86,24 +86,30 @@ body {
 }
 .sidebar_menu {
     border-bottom: 1px solid #3E4B5B;
-    margin:0 25px 30px 25px;
+    margin-bottom: 30px;
     padding-bottom: 20px;
 }
 .treeview {
     display: block;
-    margin: 0;
     padding: 0;
-    border: 0;
+}
+.treeview.active {
+    box-shadow: 5px 5px 10px #888888;
+}
+.treeview a.active,
+.treeview a:hover {
+    color: #C56DFF;
 }
 .treeview > a {
     display: block;
     overflow: hidden;
     line-height: 40px;
     color: #3E4B5B;
-    transition: all 2s;
+    transition: all 1s;
     position: relative;
     text-decoration: none;
     font-size: 17px;
+    margin: 0 25px;
 }
 .treeview a i{
     line-height: 40px;
@@ -131,11 +137,10 @@ body {
     font-weight: 300;
     text-shadow: none;
 }
-.treeview > a.active,
-.treeview > a:hover {
-    color: #C56DFF;
-    margin-left: 15px;
-}
+/*.treeview a.active,*/
+/*.treeview a:hover {*/
+    /*color: #C56DFF;*/
+/*}*/
 .treeview_menu {
     display: none;
     list-style: none;
@@ -156,11 +161,6 @@ body {
     transition: all 2s;
     color: #3E4B5B !important;
     clear: both;
-}
-.treeview_menu li a.active,
-.treeview_menu li a:hover {
-    color: #C56DFF !important;
-    margin-left: 15px;
 }
 
 

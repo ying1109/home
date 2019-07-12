@@ -1,15 +1,26 @@
 <?php
 // 自定义公共方法
 
-// 自定义错误信息
-function mes_required($str) {
-    return $str . '为必填项';
-}
+error_reporting(1);
+error_reporting(2);
 
-function mes_confirmed () {
-    return '两次输入密码不匹配';
-}
-function mes_email ($str) {
-    return $str . '格式不正确';
-}
+$url_arr = explode('/', ltrim($_SERVER['REQUEST_URI'], '/'));
+
+$MODULE     = $url_arr['0'];
+$CONTROLLER = $url_arr['1'];
+$METHOD     = $url_arr['2'];
+
+$MOD_CON     = $MODULE . '/' . $CONTROLLER;
+$MOD_MET     = $MODULE . '/' . $METHOD;
+$CON_MET     = $CONTROLLER . '/' . $METHOD;
+$MOD_CON_MET = $MODULE . '/' . $CONTROLLER . '/' . $METHOD;
+
+define('MODULE', $MODULE);
+define('CONTROLLER', $CONTROLLER);
+define('METHOD', $METHOD);
+define('MOD_CON', $MOD_CON);
+define('MOD_MET', $MOD_MET);
+define('CON_MET', $CON_MET);
+define('MOD_CON_MET', $MOD_CON_MET);
+
 

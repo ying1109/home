@@ -33,28 +33,42 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <p class="con_top">
-                <a class="content_top" href="{{url('admin/admins/adminList')}}">管理员列表</a> ->
-                <a class="content_top" href="{{url('admin/admins/adminEdit', array('id'=>$info->id))}}">编辑</a>
+                <a class="content_top" href="{{url('admin/admin/resetPwd')}}">安全设置</a>
             </p>
-            @if($errors->any())
+           
+            @if (session('success'))
+                <div class="alert alert-success">
+                    <p>{{session('success')}}</p>
+                </div>
+            @elseif (session('error'))
                 <div class="alert alert-danger">
-                    @foreach($errors->all() as $error)
-                        <p>{{$error}}</p>
+                    <p>{{session('error')}}</p>
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
                     @endforeach
                 </div>
             @endif
 
             <form class="form-horizontal" action="" method="post" autocomplete="off">
                 {{csrf_field()}}
+
+                <input type="hidden" name="account" value="{{session('admin')['account']}}">
+
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">账号：</label>
+                    <label class="col-sm-2 control-label">旧密码：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="account" value="{{$info->account}}" disabled>
+                        <input type="password" class="form-control" name="pwd" value="" autocomplete="new-password">
+                        <span class="eye"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk"></i>密码：</label>
+                    <label class="col-sm-2 control-label">新密码：</label>
                     <div class="col-sm-4">
                         <input type="password" class="form-control" name="password" value="" autocomplete="new-password">
                         <span class="eye"></span>
@@ -62,7 +76,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk"></i>再次输入：</label>
+                    <label class="col-sm-2 control-label">再次输入：</label>
                     <div class="col-sm-4">
                         <input type="password" class="form-control" name="password_confirmation" value="" autocomplete="new-password">
                         <span class="eye"></span>
@@ -70,42 +84,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">用户名：</label>
-                    <div class="col-sm-4">
-                        <input class="form-control" name="user_name"  value="{{old('user_name') ? old('user_name') : $info->user_name}}" autocomplete="off">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">真实姓名：</label>
-                    <div class="col-sm-4">
-                        <input class="form-control" name="real_name"  value="{{old('real_name') ? old('real_name') : $info->real_name}}">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk"></i>电话：</label>
-                    <div class="col-sm-4">
-                        <input class="form-control" name="phone"  value="{{old('phone') ? old('phone') : $info->phone}}">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">状态：</label>
-                    <div class="col-sm-4">
-                        <label class="radio-inline">
-                            <input type="radio" name="type" value="1" {{$info->type == 1 ? 'checked' : ''}}> 开启
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="type" value="0" {{$info->type == 0 ? 'checked' : ''}}> 关闭
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-4">
                         <button type="submit" class="btn btn-primary">提交</button>
-                        <a href="{{url('admin/admin/adminList')}}" class="btn btn-default">返回</a>
                     </div>
                 </div>
             </form>
@@ -129,6 +109,11 @@
                 }
 
             });
+
+            var msg = $('#msg').val();
+            if (msg) {
+                layer.msg(msg);
+            }
         });
     </script>
 @endsection

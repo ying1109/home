@@ -6,13 +6,11 @@ use App\Http\Model\Admin;
 use App\Rules\Phone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 // 管理员管理
-class AdminsController extends CommonController
-{
+class AdminsController extends CommonController {
     // 管理员列表
     public function adminList() {
         $map['status'] = 1;
@@ -30,6 +28,11 @@ class AdminsController extends CommonController
 
     // 管理员添加
     public function adminAdd(Request $request) {
+        if (old('type') == null) {
+            $a = 'checked';
+        } else {
+        }
+
         if ($request->isMethod('POST')) {
             $request->flash();
 
@@ -123,7 +126,7 @@ class AdminsController extends CommonController
 
         return view('admin.admins.adminEdit', ['info' => $info]);
     }
-    
+
     // 管理员删除
     public function adminDel($id) {
         $date['status'] = 0;
@@ -135,7 +138,7 @@ class AdminsController extends CommonController
             return back()->with('error', $id . '删除失败！');
         }
     }
-    
+
     // 安全设置
     public function resetPwd(Request $request) {
         if ($request->isMethod('POST')) {
@@ -182,6 +185,6 @@ class AdminsController extends CommonController
 
         return view('admin.admins.resetPwd');
     }
-    
+
 
 }

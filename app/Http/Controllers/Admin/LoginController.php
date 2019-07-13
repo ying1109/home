@@ -8,10 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 
-class LoginController extends Controller
-{
+class LoginController extends Controller {
     // 登录
-    public function login(Request $request) {
+    public function login (Request $request) {
         $input = Input::all();
         if ($input) {
             $account = $input['account'];
@@ -22,21 +21,22 @@ class LoginController extends Controller
                 return back()->with('msg', '用户名或密码错误！');
             }
 
-            session(['admin'=>$admin]);
+            session([ 'admin' => $admin ]);
             session()->save();
+
 
             return redirect('admin/homepage/console');
         }
 
         return view('admin.login.login');
     }
-    
+
     // 退出
-    public function quit() {
-        session(['admin' => null]);
+    public function quit () {
+        session([ 'admin' => null ]);
 
         return redirect('admin/login');
     }
-    
+
 
 }

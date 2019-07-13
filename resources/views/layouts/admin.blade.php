@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>home</title>
-    <link href="{{asset('admin/css/index.css')}}" rel="stylesheet" />
-    <link href="{{asset('admin/bootstrap-3.3.7-dist/css/bootstrap.css')}}" rel="stylesheet" />
-    <link href="{{asset('admin/font-awesome-4.7.0/css/font-awesome.css')}}" rel="stylesheet" />
+    <link href="{{asset('admin/css/index.css')}}" rel="stylesheet"/>
+    <link href="{{asset('admin/bootstrap-3.3.7-dist/css/bootstrap.css')}}" rel="stylesheet"/>
+    <link href="{{asset('admin/font-awesome-4.7.0/css/font-awesome.css')}}" rel="stylesheet"/>
     @section('other_css')
     @show
 
     <script type="text/javascript">
-        window.onload = function() {
+        window.onload = function () {
             function getHeight() {
-                var bodyHeight = window.innerHeight;
+                var bodyHeight                                  = window.innerHeight;
                 document.querySelector('#sidebar').style.height = (bodyHeight - 60 - 5) + 'px';
             }
+
             getHeight();
         }
     </script>

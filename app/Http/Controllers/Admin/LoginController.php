@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Input;
 class LoginController extends Controller {
     // 登录
     public function login (Request $request) {
+        $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
+
         $input = Input::all();
         if ($input) {
             $account = $input['account'];
@@ -24,11 +26,10 @@ class LoginController extends Controller {
             session([ 'admin' => $admin ]);
             session()->save();
 
-
             return redirect('admin/homepage/console');
         }
 
-        return view('admin.login.login');
+        return view('admin.login.login', ['REMOTE_ADDR'=>$REMOTE_ADDR]);
     }
 
     // 退出

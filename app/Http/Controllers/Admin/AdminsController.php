@@ -28,11 +28,6 @@ class AdminsController extends CommonController {
 
     // 管理员添加
     public function adminAdd(Request $request) {
-        if (old('type') == null) {
-            $a = 'checked';
-        } else {
-        }
-
         if ($request->isMethod('POST')) {
             $request->flash();
 

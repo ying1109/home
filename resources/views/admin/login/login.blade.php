@@ -8,6 +8,7 @@
 </head>
 <body>
     <img class="bg_banner" src="{{asset('admin/images/login/1.jpg')}}" alt="">
+    <input type="hidden" name="REMOTE_ADDR" value="{{$REMOTE_ADDR}}">
     <div class="login">
         <form class="form-inline" action="" method="post">
             {{csrf_field()}}
@@ -37,10 +38,11 @@
     $(function() {
         setInterval("bgBanner()", 5000);
     })
+    var REMOTE_ADDR = $("input[name='REMOTE_ADDR']").val();
     var i = 1;
     function bgBanner() {
         i++;
-        $('.bg_banner').attr('src', "http://home.com/admin/images/login/" + i + ".jpg");
+        $('.bg_banner').attr('src', 'http://' + REMOTE_ADDR + "/admin/images/login/" + i + ".jpg");
         if (i == 7) {
             i = 0;
         }

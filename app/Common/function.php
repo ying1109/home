@@ -23,4 +23,6 @@ define('MOD_MET', $MOD_MET);
 define('CON_MET', $CON_MET);
 define('MOD_CON_MET', $MOD_CON_MET);
 
+define('APP_URL', $_SERVER['APP_URL']);
+
 

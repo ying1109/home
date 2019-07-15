@@ -26,3 +26,15 @@ define('MOD_CON_MET', $MOD_CON_MET);
 define('APP_URL', $_SERVER['APP_URL']);
 
 
+function status ($status) {
+    if ($status == 1) {
+        return '开启';
+    } elseif ($status == 0) {
+        return '关闭';
+    }
+
+}
+
+
+
+

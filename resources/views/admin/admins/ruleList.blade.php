@@ -7,7 +7,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <p class="con_top">
-                <a class="content_top" href="{{url('admin/admins/ruleList')}}">规则列表</a>
+                <a class="content_top" href="{{url('admin/admins/authList')}}">管理组列表</a>
             </p>
 
             @if(session('success'))
@@ -19,7 +19,7 @@
                     <p>{{session('error')}}</p>
                 </div>
             @endif
-            <a href="{{url('admin/admins/ruleAdd')}}" class="btn btn-info add">添加</a>
+            <a href="{{url('admin/admins/authAdd')}}" class="btn btn-info add">添加</a>
             <table class="table table-hover">
                 <tr>
                     <th>ID</th>
@@ -30,21 +30,21 @@
                     <th>操作</th>
                 </tr>
                 {{--@foreach ($list as $k)--}}
-                    {{--<tr>--}}
-                        {{--<td>{{$k->id}}</td>--}}
-                        {{--<td>{{$k->module}}</td>--}}
-                        {{--<td>{{$k->name}}</td>--}}
-                        {{--<td>{{$k->url}}</td>--}}
-                        {{--<td>{{status($k->status)}}</td>--}}
-                        {{--<td>--}}
-                            {{--<a href="{{url('admin/admins/ruleEdit', array($k->id))}}" class="btn btn-success btn-xs">编辑</a>--}}
-                            {{--<a href="{{url('admin/admins/ruleDel', array($k->id))}}" class="btn btn-danger btn-xs">删除</a>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
+                    <tr>
+                        <td>{{$k->id}}</td>
+                        <td>{{$k->module}}</td>
+                        <td>{{$k->name}}</td>
+                        <td>{{$k->url}}</td>
+                        <td>{{status($k->status)}}</td>
+                        <td>
+                            <a href="{{url('admin/admins/ruleEdit', array($k->id))}}" class="btn btn-success btn-xs">编辑</a>
+                            <a href="{{url('admin/admins/ruleDel', array($k->id))}}" class="btn btn-danger btn-xs">删除</a>
+                        </td>
+                    </tr>
                 {{--@endforeach--}}
             </table>
             <div class="page_list">
-                {{--{{$list}}--}}
+                {{$list}}
             </div>
         </div>
     </div>

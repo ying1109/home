@@ -7,7 +7,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <p class="con_top">
-                <a class="content_top" href="{{url('admin/admins/adminList')}}">管理员列表</a>
+                <a class="content_top" href="{{url('admin/admins/moduleList')}}">模块列表</a>
             </p>
 
             @if(session('success'))
@@ -19,26 +19,22 @@
                     <p>{{session('error')}}</p>
                 </div>
             @endif
-            <a href="{{url('admin/admins/adminAdd')}}" class="btn btn-info add">添加</a>
+            <a href="{{url('admin/admins/moduleAdd')}}" class="btn btn-info add">添加</a>
             <table class="table table-hover">
                 <tr>
                     <th>ID</th>
-                    <th>账号</th>
-                    <th>用户名</th>
-                    <th>创建时间</th>
-                    <th>状态</th>
+                    <th>父级模块</th>
+                    <th>模块名称</th>
                     <th>操作</th>
                 </tr>
                 @foreach ($list as $k)
                     <tr>
                         <td>{{$k->id}}</td>
-                        <td>{{$k->account}}</td>
-                        <td>{{$k->user_name}}</td>
-                        <td>{{date('Y-m-d H:i:s', $k->create_time)}}</td>
-                        <td>{{status($k->type)}}</td>
+                        <td>{{$k->pid}}</td>
+                        <td>{{$k->name}}</td>
                         <td>
-                            <a href="{{url('admin/admins/adminEdit', array($k->id))}}" class="btn btn-success btn-xs">编辑</a>
-                            <a href="{{url('admin/admins/adminDel', array($k->id))}}" class="btn btn-danger btn-xs">删除</a>
+                            <a href="{{url('admin/admins/moduleEdit', array($k->id))}}" class="btn btn-success btn-xs">编辑</a>
+                            <a href="{{url('admin/admins/moduleDel', array($k->id))}}" class="btn btn-danger btn-xs">删除</a>
                         </td>
                     </tr>
                 @endforeach

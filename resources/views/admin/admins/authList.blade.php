@@ -29,22 +29,22 @@
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
-                {{--@foreach ($list as $k)--}}
-                    {{--<tr>--}}
-                        {{--<td>{{$k->id}}</td>--}}
-                        {{--<td>{{$k->module}}</td>--}}
-                        {{--<td>{{$k->name}}</td>--}}
-                        {{--<td>{{$k->url}}</td>--}}
-                        {{--<td>{{status($k->status)}}</td>--}}
-                        {{--<td>--}}
-                            {{--<a href="{{url('admin/admins/ruleEdit', array($k->id))}}" class="btn btn-success btn-xs">编辑</a>--}}
-                            {{--<a href="{{url('admin/admins/ruleDel', array($k->id))}}" class="btn btn-danger btn-xs">删除</a>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                {{--@endforeach--}}
+                @foreach ($list as $k)
+                    <tr>
+                        <td>{{$k->id}}</td>
+                        <td>{{$k->module}}</td>
+                        <td>{{$k->name}}</td>
+                        <td>{{$k->url}}</td>
+                        <td>{{status($k->status)}}</td>
+                        <td>
+                            <a href="{{url('admin/admins/ruleEdit', array($k->id))}}" class="btn btn-success btn-xs">编辑</a>
+                            <a href="{{url('admin/admins/ruleDel', array($k->id))}}" class="btn btn-danger btn-xs">删除</a>
+                        </td>
+                    </tr>
+                @endforeach
             </table>
             <div class="page_list">
-                {{--{{$list}}--}}
+                {{$list}}
             </div>
         </div>
     </div>

@@ -109,6 +109,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-4">
                         <button type="submit" class="btn btn-primary">提交</button>
+                        <a href="{{url('admin/admin/adminList')}}" class="btn btn-default">返回</a>
                     </div>
                 </div>
             </form>

@@ -30,6 +30,22 @@ Route::group(['middleware'=>['admin.login'], 'prefix'=>'admin', 'namespace'=>'Ad
     Route::any('admins/adminAdd', 'AdminsController@adminAdd');
     Route::any('admins/adminDel/{id}', 'AdminsController@adminDel');
     Route::any('admins/adminEdit/{id}', 'AdminsController@adminEdit');
+
+    Route::any('admins/moduleList', 'AdminsController@moduleList');
+    Route::any('admins/moduleAdd', 'AdminsController@moduleAdd');
+    Route::any('admins/moduleDel/{id}', 'AdminsController@moduleDel');
+    Route::any('admins/moduleEdit/{id}', 'AdminsController@moduleEdit');
+
+    Route::any('admins/ruleList', 'AdminsController@ruleList');
+    Route::any('admins/ruleAdd', 'AdminsController@ruleAdd');
+    Route::any('admins/ruleDel/{id}', 'AdminsController@ruleDel');
+    Route::any('admins/ruleEdit/{id}', 'AdminsController@ruleEdit');
+
+    Route::any('admins/groupList', 'AdminsController@groupList');
+    Route::any('admins/groupAdd', 'AdminsController@groupAdd');
+    Route::any('admins/groupDel/{id}', 'AdminsController@groupDel');
+    Route::any('admins/groupEdit/{id}', 'AdminsController@groupEdit');
+
     Route::any('admins/resetPwd', 'AdminsController@resetPwd');
 
 

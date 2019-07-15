@@ -18,15 +18,26 @@ class LoginController extends Controller {
             $account = $input['account'];
 
             $admin = Admin::where('account', $account)->first();
+            if ($admin) {
+            	if (Crypt::decrypt($admin['password']) != $input['pwd']) {
+                    return back()->with('msg', '用户名或密码错误！');
+            	}
 
-            if (!$admin || Crypt::decrypt($admin['password']) != $input['pwd']) {
-                return back()->with('msg', '用户名或密码错误！');
+            	if ($admin['type'] == 0) {
+                    return back()->with('msg', '该账号被禁用，如有疑问联系管理员！');
+            	}
+
+            	$data['login_time'] = time();
+                $data['login_ip']   = $_SERVER['REMOTE_ADDR'];
+                Admin::where('account', $account)->update($data);
+
+                session([ 'admin' => $admin ]);
+                session()->save();
+
+                return redirect('admin/homepage/console');
+            } else {
+                return back()->with('msg', $input['account'] . '账号不存在！');
             }
-
-            session([ 'admin' => $admin ]);
-            session()->save();
-
-            return redirect('admin/homepage/console');
         }
 
         return view('admin.login.login', ['REMOTE_ADDR'=>$REMOTE_ADDR]);

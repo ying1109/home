@@ -25,6 +25,21 @@
                         <i class="fa fa-heart-o fa-fw"></i>管理员列表
                     </a>
                 </li>
+                <li @if(substr(METHOD, 0, 6) == 'module') class="treeview treeview-active" @else class="treeview" @endif>
+                    <a href="{{url('admin/admins/moduleList')}}" @if(substr(METHOD, 0, 6) == 'module') class="active" @endif>
+                        <i class="fa fa-snowflake-o fa-fw"></i>模块管理
+                    </a>
+                </li>
+                <li @if(substr(METHOD, 0, 4) == 'rule') class="treeview treeview-active" @else class="treeview" @endif>
+                    <a href="{{url('admin/admins/ruleList')}}" @if(substr(METHOD, 0, 4) == 'rule') class="active" @endif>
+                        <i class="fa fa-paint-brush fa-fw"></i>规则管理
+                    </a>
+                </li>
+                <li @if(substr(METHOD, 0, 4) == 'group') class="treeview treeview-active" @else class="treeview" @endif>
+                    <a href="{{url('admin/admins/groupList')}}" @if(substr(METHOD, 0, 4) == 'group') class="active" @endif>
+                        <i class="fa fa-leaf fa-fw"></i>组别管理
+                    </a>
+                </li>
                 <li @if(substr(METHOD, 0, 8) == 'resetPwd') class="treeview treeview-active" @else class="treeview" @endif>
                     <a href="{{url('admin/admins/resetPwd')}}" @if(substr(METHOD, 0, 8) == 'resetPwd') class="active" @endif>
                         <i class="fa fa-key fa-fw"></i>安全设置

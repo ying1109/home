@@ -32,9 +32,13 @@ function status ($status) {
     } elseif ($status == 0) {
         return '关闭';
     }
-
 }
 
+// 截取字符串
+function cutStr ($str, $num) {
+    $str = substr($str, 0, $num) . '...';
+    return $str;
+}
 
 
 

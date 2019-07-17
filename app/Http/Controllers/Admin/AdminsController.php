@@ -119,7 +119,7 @@ class AdminsController extends CommonController {
 
     // 管理员删除
     public function adminDel ($id) {
-        $date['status'] = 0;
+        $date['status'] = '-1';
 
         $res = Admin::where('id', $id)->update($date);
         if ($res) {
@@ -228,7 +228,7 @@ class AdminsController extends CommonController {
 
     // 模块删除
     public function moduleDel ($id) {
-        $date['status'] = 0;
+        $date['status'] = '-1';
 
         $res = AdminModule::where('id', $id)->update($date);
         if ($res) {
@@ -300,7 +300,7 @@ class AdminsController extends CommonController {
     // 规则编辑
     public function ruleEdit (Request $request, $id) {
         $map['status'] = 1;
-        $list          = AdminRule::where($map)->get();
+        $list          = AdminModule::where($map)->get();
 
         $info = AdminRule::where('id', $id)->first();
 
@@ -329,7 +329,7 @@ class AdminsController extends CommonController {
                 $res = AdminRule::where('id', $id)->update($data);
 
                 if ($res) {
-                    return redirect('admin/admins/ruleList')->with('success', $res . '编辑成功！');
+                    return redirect('admin/admins/ruleList')->with('success', $id . '编辑成功！');
                 } else {
                     return back()->with('errors', '编辑失败，请稍后重试！');
                 }
@@ -344,7 +344,7 @@ class AdminsController extends CommonController {
 
     // 规则删除
     public function ruleDel ($id) {
-        $date['status'] = 0;
+        $date['status'] = '-1';
 
         $res = AdminRule::where('id', $id)->update($date);
         if ($res) {
@@ -356,14 +356,16 @@ class AdminsController extends CommonController {
 
     // 组别管理
     public function groupList () {
-        $map['status'] = array('>', 0);
-
-        $list = AdminGroup::where($map)->select()->paginate(10);
-        // foreach ($list as $k => $v) {
-        //     $map_module['id'] = $v['module'];
-        //     $info_module = AdminModule::where($map_module)->first();
-        //     $list[ $k ]['module'] = $info_module['name'];
-        // }
+        $list = AdminGroup::where('status', '>', 0)->get();
+        foreach ($list as $k => $v) {
+            $rules_arr = explode(',', $v['rules']);
+            foreach ($rules_arr as $k1 => $v1) {
+                $map_rule['id'] = $v1;
+                $info_rule = AdminRule::where($map_rule)->first();
+                $rule_name[] = $info_rule['name'];
+            }
+            $list[$k]['rules'] = implode('，', $rule_name);
+        }
 
         return view('admin.admins.groupList', ['list' => $list]);
     }
@@ -373,31 +375,35 @@ class AdminsController extends CommonController {
         $map['status'] = 1;
 
         $list = AdminModule::where($map)->get();
+        foreach ($list as $k => $v) {
+            $map_rule['module'] = $v['id'];
+            $info_rule          = AdminRule::where($map_rule)->get();
+
+            $list[$k]['rule'] = $info_rule;
+        }
 
         if ($request->isMethod('POST')) {
             $request->flash();
 
-            $data['module']      = $request->input('module');
-            $data['url']         = $request->input('url');
             $data['name']        = $request->input('name');
+            $data['rules']       = $request->input('rules') ? implode(',', $request->input('rules')) : '';
+            $data['status']      = $request->input('status');
             $data['create_time'] = time();
             $data['update_time'] = time();
 
             $rules = array (
-                'module' => 'required',
-                'name'   => 'required',
-                'url'    => 'required',
+                'name'  => 'required',
+                'rules' => 'required',
             );
 
             $mes_name = array (
-                'module' => '所属模块',
-                'name'   => '规则名称',
-                'url'    => '规则',
+                'name'  => '组别名称',
+                'rules' => '权限选择',
             );
 
             $validator = Validator::make($data, $rules, array (), $mes_name);
             if ($validator->passes()) {
-                $res = AdminRule::insertGetId($data);
+                $res = AdminGroup::insertGetId($data);
 
                 if ($res) {
                     return redirect('admin/admins/groupList')->with('success', $res . '添加成功！');
@@ -407,7 +413,6 @@ class AdminsController extends CommonController {
             } else {
                 return back()->withErrors($validator);
             }
-
         }
 
         return view('admin.admins.groupAdd', ['list' => $list]);
@@ -416,53 +421,58 @@ class AdminsController extends CommonController {
     // 组别编辑
     public function groupEdit (Request $request, $id) {
         $map['status'] = 1;
-        $list          = AdminRule::where($map)->get();
+        $list = AdminModule::where($map)->get();
+        foreach ($list as $k => $v) {
+            $map_rule['module'] = $v['id'];
+            $info_rule          = AdminRule::where($map_rule)->get();
 
-        $info = AdminRule::where('id', $id)->first();
+            $list[$k]['rule'] = $info_rule;
+        }
+
+        $info = AdminGroup::where('id', $id)->first();
+        $checked_rule = explode(',', $info['rules']);
 
         if ($request->isMethod('POST')) {
             $request->flash();
 
-            $data['module']      = $request->input('module');
-            $data['url']         = $request->input('url');
             $data['name']        = $request->input('name');
+            $data['rules']       = $request->input('rules') ? implode(',', $request->input('rules')) : '';
+            $data['status']      = $request->input('status');
+            $data['create_time'] = time();
             $data['update_time'] = time();
 
             $rules = array (
-                'module' => 'required',
-                'name'   => 'required',
-                'url'    => 'required',
+                'name'  => 'required',
+                'rules' => 'required',
             );
 
             $mes_name = array (
-                'module' => '所属模块',
-                'name'   => '规则名称',
-                'url'    => '规则',
+                'name'  => '组别名称',
+                'rules' => '权限选择',
             );
 
             $validator = Validator::make($data, $rules, array (), $mes_name);
             if ($validator->passes()) {
-                $res = AdminRule::where('id', $id)->update($data);
+                $res = AdminGroup::where('id', $id)->update($data);
 
                 if ($res) {
-                    return redirect('admin/admins/groupList')->with('success', $res . '编辑成功！');
+                    return redirect('admin/admins/groupList')->with('success', $id . '编辑成功！');
                 } else {
                     return back()->with('errors', '编辑失败，请稍后重试！');
                 }
             } else {
                 return back()->withErrors($validator);
             }
-
         }
 
-        return view('admin.admins.groupEdit', ['info' => $info, 'list' => $list,]);
+        return view('admin.admins.groupEdit', ['info' => $info, 'checked_rule' => $checked_rule, 'list' => $list,]);
     }
 
     // 组别删除
     public function groupDel ($id) {
-        $date['status'] = 0;
+        $date['status'] = '-1';
 
-        $res = AdminRule::where('id', $id)->update($date);
+        $res = AdminGroup::where('id', $id)->update($date);
         if ($res) {
             return back()->with('success', $id . '删除成功！');
         } else {

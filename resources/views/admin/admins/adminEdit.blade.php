@@ -94,10 +94,10 @@
                     <label class="col-sm-2 control-label">状态：</label>
                     <div class="col-sm-4">
                         <label class="radio-inline">
-                            <input type="radio" name="type" value="1" {{$info->type == 1 ? 'checked' : ''}}> 开启
+                            <input type="radio" name="status" value="1" {{$info->type == 1 ? 'checked' : ''}}> 开启
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="type" value="0" {{$info->type == 0 ? 'checked' : ''}}> 关闭
+                            <input type="radio" name="status" value="0" {{$info->type == 0 ? 'checked' : ''}}> 关闭
                         </label>
                     </div>
                 </div>

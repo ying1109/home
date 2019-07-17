@@ -7,7 +7,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <p class="con_top">
-                <a class="content_top" href="{{url('admin/admins/authList')}}">管理组列表</a>
+                <a class="content_top" href="{{url('admin/admins/ruleList')}}">规则列表</a>
             </p>
 
             @if(session('success'))
@@ -19,7 +19,7 @@
                     <p>{{session('error')}}</p>
                 </div>
             @endif
-            <a href="{{url('admin/admins/authAdd')}}" class="btn btn-info add">添加</a>
+            <a href="{{url('admin/admins/ruleAdd')}}" class="btn btn-info add">添加</a>
             <table class="table table-hover">
                 <tr>
                     <th>ID</th>
@@ -29,7 +29,7 @@
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
-                {{--@foreach ($list as $k)--}}
+                @foreach ($list as $k)
                     <tr>
                         <td>{{$k->id}}</td>
                         <td>{{$k->module}}</td>
@@ -41,7 +41,7 @@
                             <a href="{{url('admin/admins/ruleDel', array($k->id))}}" class="btn btn-danger btn-xs">删除</a>
                         </td>
                     </tr>
-                {{--@endforeach--}}
+                @endforeach
             </table>
             <div class="page_list">
                 {{$list}}

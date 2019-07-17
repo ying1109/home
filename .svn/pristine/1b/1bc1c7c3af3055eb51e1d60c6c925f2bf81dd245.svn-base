@@ -1,0 +1,60 @@
+<?php $__env->startSection('other_css'); ?>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p class="con_top">
+                <a class="content_top" href="<?php echo e(url('admin/admins/adminList')); ?>">管理员列表</a>
+            </p>
+
+            <?php if(session('success')): ?>
+                <div class="alert alert-success">
+                    <p><?php echo e(session('success')); ?></p>
+                </div>
+            <?php elseif(session('error')): ?>
+                <div class="alert alert-error">
+                    <p><?php echo e(session('error')); ?></p>
+                </div>
+            <?php endif; ?>
+            <a href="<?php echo e(url('admin/admins/adminAdd')); ?>" class="btn btn-info add">添加</a>
+            <table class="table table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th>账号</th>
+                    <th>用户名</th>
+                    <th>创建时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                <?php $__currentLoopData = $list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr>
+                        <td><?php echo e($k->id); ?></td>
+                        <td><?php echo e($k->account); ?></td>
+                        <td><?php echo e($k->user_name); ?></td>
+                        <td><?php echo e(date('Y-m-d H:i:s', $k->create_time)); ?></td>
+                        <td><?php echo e(status($k->type)); ?></td>
+                        <td>
+                            <a href="<?php echo e(url('admin/admins/adminEdit', array($k->id))); ?>" class="btn btn-success btn-xs">编辑</a>
+                            <a href="<?php echo e(url('admin/admins/adminDel', array($k->id))); ?>" class="btn btn-danger btn-xs">删除</a>
+                        </td>
+                    </tr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </table>
+            <div class="page_list">
+                <?php echo e($list); ?>
+
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('other_js'); ?>
+    <script type="text/javascript">
+        $(".btn-danger").click(function () {
+            var org = confirm('确定删除吗？');
+            return org;
+        });
+    </script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

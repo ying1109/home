@@ -1,0 +1,119 @@
+<?php $__env->startSection('other_css'); ?>
+    <style>
+        .eye:before {
+            float: right;
+            display: inline-block;
+            font-size: 16px;
+            font-family: FontAwesome;
+            height: auto;
+            content: "\f070";
+            font-weight: 300;
+            text-shadow: none;
+            margin-top: -29px;
+            margin-right: 10px;
+        }
+        .eye.open:before {
+            float: right;
+            display: inline-block;
+            font-size: 16px;
+            font-family: FontAwesome;
+            height: auto;
+            content: "\f06e";
+            font-weight: 300;
+            text-shadow: none;
+            margin-top: -29px;
+            margin-right: 10px;
+        }
+    </style>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p class="con_top">
+                <a class="content_top" href="<?php echo e(url('admin/admins/adminResetPwd')); ?>">安全设置</a>
+            </p>
+           
+            <?php if(session('success')): ?>
+                <div class="alert alert-success">
+                    <p><?php echo e(session('success')); ?></p>
+                </div>
+            <?php elseif(session('error')): ?>
+                <div class="alert alert-danger">
+                    <p><?php echo e(session('error')); ?></p>
+                </div>
+            <?php endif; ?>
+
+            <?php if($errors->any()): ?>
+                <div class="alert alert-danger">
+                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <p><?php echo e($error); ?></p>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+            <?php endif; ?>
+
+            <form class="form-horizontal" action="" method="post" autocomplete="off">
+                <?php echo e(csrf_field()); ?>
+
+
+                <input type="hidden" name="account" value="<?php echo e(session('admin')['account']); ?>">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">旧密码：</label>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" name="pwd" value="" autocomplete="new-password">
+                        <span class="eye"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">新密码：</label>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" name="password" value="" autocomplete="new-password">
+                        <span class="eye"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">再次输入：</label>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" name="password_confirmation" value="" autocomplete="new-password">
+                        <span class="eye"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('other_js'); ?>
+    <script src="https://use.fontawesome.com/9f2ac9fd56.js"></script>
+    <script type="text/javascript">
+        // 显示或隐藏密码
+        $(document).ready(function () {
+            $('.eye').click(function () {
+                var pwd_class = $(this).attr('class');
+                if (pwd_class == 'eye') {
+                    $(this).addClass('open');
+                    $(this).siblings().attr('type', 'text');
+                } else {
+                    $(this).removeClass('open');
+                    $(this).siblings().attr('type', 'password');
+                }
+
+            });
+
+            var msg = $('#msg').val();
+            if (msg) {
+                layer.msg(msg);
+            }
+        });
+    </script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

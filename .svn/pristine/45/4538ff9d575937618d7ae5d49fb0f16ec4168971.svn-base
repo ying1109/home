@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+    <link href="<?php echo e(asset('admin/css/index.css')); ?>" rel="stylesheet"/>
+    <link href="<?php echo e(asset('admin/bootstrap-3.3.7-dist/css/bootstrap.css')); ?>" rel="stylesheet"/>
+    <link href="<?php echo e(asset('admin/font-awesome-4.7.0/css/font-awesome.css')); ?>" rel="stylesheet"/>
+    <?php $__env->startSection('other_css'); ?>
+    <?php echo $__env->yieldSection(); ?>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            function getHeight() {
+                var bodyHeight                                  = window.innerHeight;
+                document.querySelector('#sidebar').style.height = (bodyHeight - 60 - 5) + 'px';
+            }
+
+            getHeight();
+        }
+    </script>
+</head>
+<body>
+
+<?php echo $__env->make('layouts.header', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<div id="content">
+    
+
+    <section class="content">
+        <?php $__env->startSection('content'); ?>
+        <?php echo $__env->yieldSection(); ?>
+    </section>
+    
+</div>
+
+</body>
+
+<script src="<?php echo e(asset('admin/js/jquery-3.3.1.js')); ?>"></script>
+<script src="<?php echo e(asset('admin/bootstrap-3.3.7-dist/js/bootstrap.js')); ?>"></script>
+<script src="<?php echo e(asset('admin/layer/layer.js')); ?>"></script>
+<script src="<?php echo e(asset('admin/js/index.js')); ?>"></script>
+
+<?php $__env->startSection('other_js'); ?>
+<?php echo $__env->yieldSection(); ?>
+</html>

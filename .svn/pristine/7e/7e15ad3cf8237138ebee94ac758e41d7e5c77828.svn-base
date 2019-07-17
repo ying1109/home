@@ -1,0 +1,134 @@
+<?php $__env->startSection('other_css'); ?>
+    <style>
+        .auth {
+            margin-top: 15px;
+        }
+        .module {
+            font-size: 22px;
+            font-weight: 400;
+            margin: 20px 0 0 0;
+        }
+        .checkbox-inline {
+            margin: 0 15px 0 0 !important;
+        }
+    </style>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p class="con_top">
+                <a class="content_top" href="<?php echo e(url('admin/admins/groupList')); ?>">管理组列表</a> ->
+                <a class="content_top" href="<?php echo e(url('admin/admins/groupEdit')); ?>">编辑</a>
+            </p>
+            <?php if(count($errors) > 0): ?>
+                <?php if(is_object($errors)): ?>
+                    <div class="alert alert-danger">
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <p><?php echo e($k); ?></p>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                <?php else: ?>
+                    <div class="alert alert-danger"><?php echo e($k); ?></div>
+                <?php endif; ?>
+            <?php endif; ?>
+
+            <form class="form-horizontal" action="" method="post" autocomplete="off">
+                <?php echo e(csrf_field()); ?>
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk"></i>组别名称：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="name" value="<?php echo e(old('name') ? old('name') : $info['name']); ?>">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">状态：</label>
+                    <div class="col-sm-4">
+                        <label class="radio-inline">
+                            <input type="radio" name="status" value="1" checked> 开启
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="status" value="0"> 关闭
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk"></i>权限选择：</label>
+                    <div class="col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="checkAll" value="1"> 全选
+                            </label>
+                        </div>
+                        <div class="auth">
+                            <?php $__currentLoopData = $list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <p class="module"><?php echo e($v->name); ?></p>
+                                <?php $__currentLoopData = $v['rule']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k1 => $v1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rules[]" class="check" value="<?php echo e($v1['id']); ?>" <?php echo e(in_array($v1['id'], $checked_rule) ? 'checked' : ''); ?> > <?php echo e($v1['name']); ?>
+
+                                    </label>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <button type="submit" class="btn btn-primary">提交</button>
+                        <a href="<?php echo e(url('admin/admin/groupList')); ?>" class="btn btn-default">返回</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('other_js'); ?>
+    <script type="text/javascript">
+        var checkAll = $('.checkAll');
+        var check    = $('.check');
+
+        $(document).ready(function () {
+            var num = 0;
+            for (i = 0; i < check.length; i++) {
+                var check1 = check.eq(i).prop('checked');
+                if (check1) {
+                    num++;
+                }
+            }
+
+            if (num == check.length) {
+                checkAll.prop('checked', 'checked');
+            } else {
+                checkAll.prop('checked', '');
+            }
+        });
+
+        checkAll.click(function () {
+            check.attr('checked', this.checked);
+        });
+
+        check.click(function () {
+            var num = 0;
+            for (i = 0; i < check.length; i++) {
+                var check1 = check.eq(i).prop('checked');
+                if (check1) {
+                    num++;
+                }
+            }
+
+            if (num == check.length) {
+                checkAll.prop('checked', 'checked');
+            } else {
+                checkAll.prop('checked', '');
+            }
+        })
+    </script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

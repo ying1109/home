@@ -23,7 +23,7 @@ class LoginController extends Controller {
                     return back()->with('msg', '用户名或密码错误！');
             	}
 
-            	if ($admin['type'] == 0) {
+            	if ($admin['status'] == 0) {
                     return back()->with('msg', '该账号被禁用，如有疑问联系管理员！');
             	}
 
